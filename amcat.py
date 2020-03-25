@@ -1,5 +1,7 @@
 import unittest
 from ds import TupleMaxHeapQueue
+import heapq
+import queue
 
 #Problem 1 Helper functions
 def isAlphabet(c):
@@ -31,8 +33,23 @@ def getFrequencyDictForKeyWords(reviews, keywords):
             i += 1
     return freqTab
 
-class Solution:
+#Problem 3 Helper functions
+def initializeQueue(q, matrix):
+    i = 0
+    j = 0
+    for x in matrix:
+        j=0
+        for y in matrix:
+            if y == 1:
+                q.put((i,j))
+            j+=1
+        i+=1
 
+    q.put((-1,-1))
+    return q
+
+
+class Solution:
     '''
         Given a list of reviews, a list of keywords and an integer k. Find the most popular k keywords in order of most to
         least frequently mentioned.
@@ -40,7 +57,6 @@ class Solution:
         The comparison of strings is case-insensitive. If keywords are mentioned an equal number of times in reviews,
         sort alphabetically.
     '''
-
     def problemOne(self, k, keywords, reviews):
         freqTab = getFrequencyDictForKeyWords(reviews, keywords)
         heap = TupleMaxHeapQueue()
@@ -49,7 +65,6 @@ class Solution:
         for keyw in freqTab.keys():
             heap.push_item((keyw, freqTab[keyw]))
         result = heap.f_k_ten(k)
-        print(result)
 
         for r in result:
             ret_list.append(r[1])
@@ -65,14 +80,36 @@ class Solution:
         Return list of lists of the suggested products after each character of searchWord is typed. 
     '''
     def problemTwo(self, products, searchWord):
-        return None
+        i = 1
+        searchWLen = len(searchWord)
+        results = []
 
+        while i <= searchWLen:
+            search_curr = searchWord[0:i]
+            candidates = []
+            for p in products:
+                if p.startswith(search_curr):
+                    heapq.heappush(candidates, p)
+
+            top3 = []
+            for j in range(3):
+                top3.append(heapq.heappop(candidates))
+                if len(candidates) == 0:
+                    break
+            results.append(top3)
+            i+=1
+        return results
 
     '''
         Given a 2D grid, each cell is either a zombie 1 or a human 0. Zombies can turn adjacent (up/down/left/right) human 
         beings into zombies every hour. Find out how many hours does it take to infect all humans?
     '''
     def problemThree(self, matrix):
+        q = queue.Queue()
+        q = initializeQueue(q, matrix)
+        for x in q.p:
+            print(x)
+
         return None
     '''
         Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water 
@@ -187,24 +224,24 @@ class AMCATTests(unittest.TestCase):
         solutions = Solution()
         result = solutions.problemTwo(products, searchWord)
         self.assertListEqual(result, output)
-    # def test_three_problemTwo(self):
-    #     products = ["havana"]
-    #     searchWord = "havana"
-    #     output = [
-    #         ["havana"],["havana"],["havana"],["havana"],["havana"],["havana"]
-    #     ]
-    #     solutions = Solution()
-    #     result = solutions.problemTwo(products, searchWord)
-    #     self.assertListEqual(result, output)
-    # def test_one_problemThree(self):
-    #     matrix = [[0, 1, 1, 0, 1],
-    #      [0, 1, 0, 1, 0],
-    #      [0, 0, 0, 0, 1],
-    #      [0, 1, 0, 0, 0]]
-    #
-    #     solutions = Solution()
-    #     hours = solutions.problemThree(matrix)
-    #     self.assertEqual(hours, 2)
+    def test_three_problemTwo(self):
+        products = ["havana"]
+        searchWord = "havana"
+        output = [
+            ["havana"],["havana"],["havana"],["havana"],["havana"],["havana"]
+        ]
+        solutions = Solution()
+        result = solutions.problemTwo(products, searchWord)
+        self.assertListEqual(result, output)
+    def test_one_problemThree(self):
+        matrix = [[0, 1, 1, 0, 1],
+         [0, 1, 0, 1, 0],
+         [0, 0, 0, 0, 1],
+         [0, 1, 0, 0, 0]]
+
+        solutions = Solution()
+        hours = solutions.problemThree(matrix)
+        self.assertEqual(hours, 2)
     # def test_one_problemFour(self):
     #     map =[
     #         [1,1,1,1,0],
