@@ -10,7 +10,7 @@ def isAlphabet(c):
 def getFrequencyDictForKeyWords(reviews, keywords):
     freqTab = {}
     for r in reviews:
-        words = r.split(" ")
+        words = list(set(r.split(" ")))
 
         num_of_words = len(words)
         i = 0
@@ -49,6 +49,7 @@ class Solution:
         for keyw in freqTab.keys():
             heap.push_item((keyw, freqTab[keyw]))
         result = heap.f_k_ten(k)
+        print(result)
 
         for r in result:
             ret_list.append(r[1])
@@ -63,8 +64,10 @@ class Solution:
             
         Return list of lists of the suggested products after each character of searchWord is typed. 
     '''
-    def problemTwo(self, products: [str], searchWord: str) -> [[str]]:
+    def problemTwo(self, products, searchWord):
         return None
+
+
     '''
         Given a 2D grid, each cell is either a zombie 1 or a human 0. Zombies can turn adjacent (up/down/left/right) human 
         beings into zombies every hour. Find out how many hours does it take to infect all humans?
@@ -162,28 +165,28 @@ class AMCATTests(unittest.TestCase):
         solutions = Solution()
         result = solutions.problemOne(k, keywords, reviews)
         self.assertListEqual(output, result)
-    # def test_one_problemTwo(self):
-    #     products = ["mobile","mouse","moneypot","monitor","mousepad"]
-    #     searchWord = "mouse"
-    #     output = [
-    #         ["mobile","moneypot","monitor"],
-    #         ["mobile","moneypot","monitor"],
-    #         ["mouse","mousepad"],
-    #         ["mouse","mousepad"],
-    #         ["mouse","mousepad"]
-    #     ]
-    #     solutions = Solution()
-    #     result = solutions.problemTwo(products, searchWord)
-    #     self.assertListEqual(result, output)
-    # def test_two_problemTwo(self):
-    #     products = ["bags","baggage","banner","box","cloths"]
-    #     searchWord = "bags"
-    #     output = [
-    #         ["baggage","bags","banner"],["baggage","bags","banner"],["baggage","bags"],["bags"]
-    #     ]
-    #     solutions = Solution()
-    #     result = solutions.problemTwo(products, searchWord)
-    #     self.assertListEqual(result, output)
+    def test_one_problemTwo(self):
+        products = ["mobile","mouse","moneypot","monitor","mousepad"]
+        searchWord = "mouse"
+        output = [
+            ["mobile","moneypot","monitor"],
+            ["mobile","moneypot","monitor"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"]
+        ]
+        solutions = Solution()
+        result = solutions.problemTwo(products, searchWord)
+        self.assertListEqual(result, output)
+    def test_two_problemTwo(self):
+        products = ["bags","baggage","banner","box","cloths"]
+        searchWord = "bags"
+        output = [
+            ["baggage","bags","banner"],["baggage","bags","banner"],["baggage","bags"],["bags"]
+        ]
+        solutions = Solution()
+        result = solutions.problemTwo(products, searchWord)
+        self.assertListEqual(result, output)
     # def test_three_problemTwo(self):
     #     products = ["havana"]
     #     searchWord = "havana"
