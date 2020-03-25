@@ -14,6 +14,6 @@ class my_queue:
         for i in range(3):
             # minus to revert minus in push_item
             large_item = heapq.heappop(self.top_items)
-            top_ten_items.append((large_item[0],-large_item[1]))
+            top_ten_items.append((-large_item[0],large_item[1]))
 
         print(top_ten_items)

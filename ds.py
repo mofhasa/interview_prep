@@ -1,3 +1,5 @@
+import heapq
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -29,5 +31,22 @@ class Graph:
             for ee in edges:
                 self.adj_mat[ee[0]][ee[1]] = 1
                 self.e += 1
+
+
+#Heap
+
+class TupleMaxHeapQueue:
+    def __init__(self):
+        self.top_items = []
+
+    def push_item(self, item):
+        heapq.heappush(self.top_items, (-item[1], item[0]))
+
+    def f_k_ten(self, k):
+        top_k_items = []
+        for i in range(k):
+            large_item = heapq.heappop(self.top_items)
+            top_k_items.append((-large_item[0], large_item[1]))
+        return top_k_items
 
     
