@@ -17,3 +17,12 @@ class my_queue:
             top_ten_items.append((-large_item[0],large_item[1]))
 
         print(top_ten_items)
+
+def test_function(matrix):
+    matrix[0][0] = 1
+
+if __name__ == '__main__':
+    matrix = [[0 for x in range(10)] for x in range(10)]
+    test_function(matrix)
+    print(matrix[0][0])
+

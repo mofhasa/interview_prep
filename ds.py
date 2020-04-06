@@ -8,7 +8,7 @@ class TreeNode:
         self.right = None
 
 #Graph with nodes elements embedded numerical value from 0 to v
-class Graph:
+class Graph_und:
     def __init__(self, v, edges=None):
         self.v = v
         self.e = 0
@@ -24,12 +24,14 @@ class Graph:
                     src = int(e[0])
                     dest = int(e[1])
                     self.adj_mat[src][dest] = 1
+                    self.adj_mat[dest][src] = 1
                     self.e += 1
                 else:
                     break
         else:
             for ee in edges:
                 self.adj_mat[ee[0]][ee[1]] = 1
+                self.adj_mat[ee[1]][ee[0]] = 1
                 self.e += 1
 
 
