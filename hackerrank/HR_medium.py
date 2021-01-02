@@ -20,4 +20,7 @@ class HRMedium_set1:
         return len(stack) == 0
 
 
+    def p2(self, s):
+        pass
+
 
