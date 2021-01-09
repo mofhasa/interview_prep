@@ -6,6 +6,15 @@ def prodArr(arr, i):
             prod *= v
     return prod
 
+
+def isInt(ch):
+    try:
+        i = int(ch)
+        return True
+    except ValueError:
+        return False
+    return True
+
 class Medium_LC_set1:
     #Decode Ways
     def p1(self, nums):
@@ -97,6 +106,31 @@ class Medium_LC_set1:
                start = k + 1
 
         return ret
+
+    # 394: Decode String: https://leetcode.com/problems/decode-string/
+    def p7(self, s):
+        count_stack = []
+        str_stack = []
+
+        i = 0
+        n = len(s)
+
+        curr_k = ""
+        curr_str = ""
+
+        while i < n -1:
+            if s[i] == '[':
+                count_stack.append(int(curr_k))
+                str_stack.append(curr_str)
+                curr_k = 0
+            elif s[i] == ']':
+                decode = str_stack.pop()
+                temp_k = 
+            elif isInt(s[i]):
+                curr_k += s[i]
+            else:
+                curr_str += s[i]
+
 
 
 

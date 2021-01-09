@@ -46,5 +46,14 @@ class MediumLCSet1Tests(unittest.TestCase):
     def test_p6_t3(self):
         s = Solution_set1()
         self.assertEqual(s.p6("caedbdedda"), [1,9])
+
+    def test_p7_t1(self):
+        s = Solution_set1()
+        self.assertEqual(s.p7("3[a]2[bc]"), "aaabcbc")
+
+    def test_p7_t2(self):
+        s = Solution_set1()
+        self.assertEqual(s.p7("3[a]2[bc]"), "aaabcbc")
+
 if __name__ == '__main__':
     unittest.main()
